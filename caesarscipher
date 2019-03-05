@@ -1,0 +1,9 @@
+#create the caesar function that take in the message and the key that it will change
+def caeser(message, key):
+    return ''.join(chr(shift(ord(c), key)) if c >= 'A' and c <= 'Z' else c for c in message.upper())
+   #shifts the letters down depending on the key that is input from the user
+
+def shift(n, d):
+    return 65 + (n - 65 + d) % 26
+    
+    #returns the message from the user that is shifted.
