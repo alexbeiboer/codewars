@@ -1,0 +1,35 @@
+def dijkstra(maze):
+    #create the maze
+    maze = [[int(char) for char in line] for line in maze.split("\n")]
+    move = [[None for i in range(len(maze[0]))] for j in range(len(maze))]
+    #store all cardinal directions
+    directions = [[-1,0],[1,0],[0,1],[0,-1]]
+    #initialize search list with starting point
+    search_list = [[0,0]]
+    #initialize starting point
+    move[0][0] = 0
+
+    index_val = 0
+    #while there are still nodes to search
+    while index_val < len(search_list):
+        #get current position
+        position = search_list[index_val]
+
+        alt = maze[position[0]][position[1]]
+        current_move = move[position[0]][position[1]]
+        #search all cardinal directions from current
+        for direction in directions:
+            #get new position
+            new_position = [position[0] + direction[0], position[1] + direction[1]]
+            #make sure position is in bounds
+            if new_position[0] >=0 and new_position[0] <len(maze) and new_position[1] >=0 and new_position[1] < len(maze[0]):
+                #calculate next move
+                new_move = current_move + abs(alt - maze[new_position[0]][new_position[1]])
+                #if the next move costs less
+                if move[new_position[0]][new_position[1]] == None or new_move < move[new_position[0]][new_position[1]]:
+                    #add the move to output matrix and search_list
+                    move[new_position[0]][new_position[1]] = new_move
+                    search_list.append(new_position)
+        #increment index
+        index_val += 1
+    #return destination
